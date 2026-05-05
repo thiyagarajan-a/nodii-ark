@@ -26,7 +26,7 @@ export default function ExplodedWatch({
     transition: {
       duration: 6 + delay,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
       delay,
     },
   });
