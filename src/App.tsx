@@ -24,7 +24,7 @@ import {
   X,
 } from "lucide-react";
 // ExplodedWatch3D available at ./components/ExplodedWatch3D if needed
-import { watches, type Watch as WatchType } from "./data/watches";
+import { watches } from "./data/watches";
 
 /* ── Helper components ── */
 
