@@ -20,6 +20,8 @@ export type Watch = {
   accent: string;
   dialColor: string;
   caseColor: string;
+  heroImage: string;
+  thumbImage?: string;
 };
 
 export const watches: Watch[] = [
@@ -53,6 +55,7 @@ export const watches: Watch[] = [
     accent: "#0b6d4f",
     dialColor: "#0b6d4f",
     caseColor: "#b87357",
+    heroImage: "/watches/cropped/tanjore_radiant_hero.png",
   },
   {
     id: "tanjore-small-seconds",
@@ -82,6 +85,7 @@ export const watches: Watch[] = [
     accent: "#0b6d4f",
     dialColor: "#0b6d4f",
     caseColor: "#b87357",
+    heroImage: "/watches/cropped/tanjore_ss_hero.png",
   },
   {
     id: "native-american-luxury",
@@ -112,6 +116,7 @@ export const watches: Watch[] = [
     accent: "#D4AF37",
     dialColor: "#0C0C0C",
     caseColor: "#D4AF37",
+    heroImage: "/watches/cropped/native_luxury_hero.png",
   },
   {
     id: "keezhadi-field",
@@ -142,6 +147,7 @@ export const watches: Watch[] = [
     accent: "#7A4E2E",
     dialColor: "#2B2B2B",
     caseColor: "#8D8A4E",
+    heroImage: "/watches/cropped/keezhadi_field_hero.png",
   },
   {
     id: "native-american-teal",
@@ -172,5 +178,6 @@ export const watches: Watch[] = [
     accent: "#0C686E",
     dialColor: "#0C686E",
     caseColor: "#8D8A4E",
+    heroImage: "/watches/cropped/native_hero_clean.png",
   },
 ];

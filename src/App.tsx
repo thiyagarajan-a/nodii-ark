@@ -23,7 +23,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import ExplodedWatch3D from "./components/ExplodedWatch3D";
+// ExplodedWatch3D available at ./components/ExplodedWatch3D if needed
 import { watches, type Watch as WatchType } from "./data/watches";
 
 /* ── Helper components ── */
@@ -57,99 +57,6 @@ function GlassCard({
 
 function GoldDivider() {
   return <div className="hairline my-0" />;
-}
-
-/* ── Watch dial SVG (used in collection cards) ── */
-function WatchDial({ watch, size = 200 }: { watch: WatchType; size?: number }) {
-  return (
-    <div
-      className="relative rounded-full overflow-hidden mx-auto"
-      style={{ width: size, height: size }}
-    >
-      {/* Case */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: `linear-gradient(135deg, ${watch.caseColor}, ${watch.caseColor}88, ${watch.caseColor}44)`,
-        }}
-      />
-      {/* Inner dial */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          inset: "8%",
-          background: `radial-gradient(circle at 40% 35%, ${watch.dialColor}ee, ${watch.dialColor}cc, ${watch.dialColor}66)`,
-        }}
-      />
-      {/* Sunray effect */}
-      {Array.from({ length: 60 }).map((_, i) => {
-        const a = (i / 60) * 360;
-        return (
-          <div
-            key={i}
-            className="absolute left-1/2 top-1/2 origin-[0_0]"
-            style={{
-              transform: `rotate(${a}deg)`,
-              width: `${size * 0.45}px`,
-              height: "0.5px",
-              background: `linear-gradient(90deg, transparent, ${watch.accent}30, transparent)`,
-            }}
-          />
-        );
-      })}
-      {/* Indices */}
-      {Array.from({ length: 12 }).map((_, i) => {
-        const a = (i / 12) * 360 - 90;
-        const r = 40;
-        const x = 50 + r * Math.cos((a * Math.PI) / 180);
-        const y = 50 + r * Math.sin((a * Math.PI) / 180);
-        return (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              width: "2px",
-              height: i % 3 === 0 ? "10px" : "6px",
-              marginLeft: "-1px",
-              marginTop: "-3px",
-              background: "linear-gradient(180deg, #f3d68a, #c9a24a)",
-              transform: `rotate(${a + 90}deg)`,
-              boxShadow: "0 0 4px rgba(243,214,138,0.3)",
-            }}
-          />
-        );
-      })}
-      {/* Hands */}
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 w-full h-full"
-      >
-        <polygon
-          points="50,50 48.5,49 48,22 50,20 52,22 51.5,49"
-          fill="#f3d68a"
-        />
-        <g transform="rotate(65 50 50)">
-          <polygon
-            points="50,50 49,49 48.8,15 50,13 51.2,15 51,49"
-            fill="#f3d68a"
-          />
-        </g>
-        <circle cx="50" cy="50" r="2.5" fill="#f3d68a" />
-        <circle cx="50" cy="50" r="1" fill="#0a0a0c" />
-      </svg>
-      {/* Glass reflection */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/15 via-transparent to-transparent" />
-      {/* Outer ring glow */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          boxShadow: `inset 0 0 20px ${watch.accent}20, 0 0 30px ${watch.accent}15`,
-        }}
-      />
-    </div>
-  );
 }
 
 /* ── Main App ── */
@@ -303,15 +210,21 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Right — 3D Exploded Watch */}
+            {/* Right — Hero Watch Image + ambient glow */}
             <div className="relative lg:h-[90vh] flex items-center justify-center">
+              <div className="absolute w-[500px] h-[500px] rounded-full bg-emerald-radial opacity-50 blur-3xl" />
+              <div className="absolute w-[400px] h-[400px] rounded-full bg-gold-radial opacity-30 blur-3xl translate-y-12" />
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1.6, ease: "easeOut" }}
-                className="w-full max-w-[550px] aspect-square"
+                className="relative z-10"
               >
-                <ExplodedWatch3D />
+                <img
+                  src="/watches/cropped/tanjore_ss_hero.png"
+                  alt="NODII ARK Tanjore Temple Small Seconds"
+                  className="w-full max-w-[480px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                />
               </motion.div>
             </div>
           </div>
@@ -380,8 +293,13 @@ export default function App() {
           {/* Big diagram panel */}
           <div className="grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-7">
-              <GlassCard className="relative aspect-square overflow-hidden noise p-8">
-                <ExplodedWatch3D />
+              <GlassCard className="relative aspect-square overflow-hidden noise p-0">
+                <img
+                  src="/watches/keezhadi_asset.png"
+                  alt="NODII ARK Watch — Front, Back, Side Views"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07070a]/60 via-transparent to-transparent" />
               </GlassCard>
             </div>
 
@@ -481,17 +399,17 @@ export default function App() {
               {
                 title: "Made for Heritage",
                 desc: "NODII ARK combines art and engineering, merging aesthetics with centuries of cultural meaning.",
-                icon: Crown,
+                image: "/watches/cropped/tanjore_dial_macro.png",
               },
               {
                 title: "Built for Precision",
                 desc: "Creating precise, innovative timepieces that celebrate life's moments with mechanical excellence.",
-                icon: Cog,
+                image: "/watches/cropped/tanjore_rotor_macro.png",
               },
               {
                 title: "Crafted for Legacy",
                 desc: "Every watch is individually numbered and finished, becoming an heirloom from day one.",
-                icon: Gem,
+                image: "/watches/cropped/keezhadi_caseback.png",
               },
             ].map((c, i) => (
               <motion.div
@@ -501,24 +419,23 @@ export default function App() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.12 }}
               >
-                <GlassCard hover className="p-8 h-full">
-                  {/* Decorative watch macro placeholder */}
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-charcoal to-ink flex items-center justify-center relative">
-                    <div className="w-28 h-28 rounded-full border border-antique/20 flex items-center justify-center">
-                      <c.icon
-                        size={32}
-                        className="text-antique/60"
-                        strokeWidth={1}
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07070a] to-transparent opacity-50" />
+                <GlassCard hover className="p-0 h-full overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    <img
+                      src={c.image}
+                      alt={c.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#07070a] via-transparent to-transparent opacity-60" />
                   </div>
-                  <h3 className="font-display text-xl text-bone mb-2">
-                    {c.title}
-                  </h3>
-                  <p className="text-bone/50 text-sm leading-relaxed">
-                    {c.desc}
-                  </p>
+                  <div className="p-6">
+                    <h3 className="font-display text-xl text-bone mb-2">
+                      {c.title}
+                    </h3>
+                    <p className="text-bone/50 text-sm leading-relaxed">
+                      {c.desc}
+                    </p>
+                  </div>
                 </GlassCard>
               </motion.div>
             ))}
@@ -639,22 +556,24 @@ export default function App() {
               transition={{ duration: 0.5 }}
             >
               <GlassCard className="grid lg:grid-cols-2 overflow-hidden">
-                {/* Watch visual */}
-                <div className="relative aspect-square lg:aspect-auto flex items-center justify-center p-12 overflow-hidden">
+                {/* Watch visual — real image */}
+                <div className="relative aspect-square lg:aspect-auto flex items-center justify-center p-8 lg:p-12 overflow-hidden min-h-[400px]">
                   <div
                     className="absolute inset-0"
                     style={{
-                      background: `radial-gradient(circle at 50% 50%, ${currentWatch.dialColor}25, transparent 70%)`,
+                      background: `radial-gradient(circle at 50% 50%, ${currentWatch.dialColor}20, transparent 70%)`,
                     }}
                   />
-                  <motion.div
-                    initial={{ scale: 0.8, rotate: -10 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                  >
-                    <WatchDial watch={currentWatch} size={280} />
-                  </motion.div>
-                  <div className="absolute top-6 left-6 text-[10px] tracking-[0.3em] uppercase text-antique/80 glass rounded-full px-3 py-1">
+                  <motion.img
+                    key={currentWatch.heroImage}
+                    src={currentWatch.heroImage}
+                    alt={currentWatch.name}
+                    className="relative z-10 w-full max-w-[360px] h-auto object-contain drop-shadow-[0_16px_48px_rgba(0,0,0,0.7)]"
+                    initial={{ scale: 0.85, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                  />
+                  <div className="absolute top-6 left-6 text-[10px] tracking-[0.3em] uppercase text-antique/80 glass rounded-full px-3 py-1 z-20">
                     {currentWatch.edition}
                   </div>
                 </div>
@@ -737,7 +656,13 @@ export default function App() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <WatchDial watch={w} size={80} />
+                <div className="w-20 h-20 mx-auto overflow-hidden rounded-lg flex items-center justify-center">
+                  <img
+                    src={w.heroImage}
+                    alt={w.name}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
                 <div className="mt-3 text-[10px] tracking-[0.15em] uppercase text-bone/60 leading-tight">
                   {w.name.length > 25 ? w.name.slice(0, 22) + "…" : w.name}
                 </div>
