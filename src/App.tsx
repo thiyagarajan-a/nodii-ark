@@ -221,9 +221,9 @@ export default function App() {
                 className="relative z-10"
               >
                 <img
-                  src="/watches/cropped/tanjore_ss_hero.png"
-                  alt="NODII ARK Tanjore Temple Small Seconds"
-                  className="w-full max-w-[480px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                  src="/watches/cropped/tanjore_green_front.jpg"
+                  alt="NODII ARK Tanjore Temple — Emerald Green Dial"
+                  className="w-full max-w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg"
                 />
               </motion.div>
             </div>
@@ -295,7 +295,7 @@ export default function App() {
             <div className="lg:col-span-7">
               <GlassCard className="relative aspect-square overflow-hidden noise p-0">
                 <img
-                  src="/watches/keezhadi_asset.png"
+                  src="/watches/cropped/native_field_3view.jpg"
                   alt="NODII ARK Watch — Front, Back, Side Views"
                   className="w-full h-full object-cover"
                 />
@@ -399,17 +399,17 @@ export default function App() {
               {
                 title: "Made for Heritage",
                 desc: "NODII ARK combines art and engineering, merging aesthetics with centuries of cultural meaning.",
-                image: "/watches/cropped/tanjore_dial_macro.png",
+                image: "/watches/cropped/tanjore_painting_dial.jpg",
               },
               {
                 title: "Built for Precision",
                 desc: "Creating precise, innovative timepieces that celebrate life's moments with mechanical excellence.",
-                image: "/watches/cropped/tanjore_rotor_macro.png",
+                image: "/watches/cropped/pilot01_spec.jpg",
               },
               {
                 title: "Crafted for Legacy",
                 desc: "Every watch is individually numbered and finished, becoming an heirloom from day one.",
-                image: "/watches/cropped/keezhadi_caseback.png",
+                image: "/watches/cropped/tanjore_black_front.jpg",
               },
             ].map((c, i) => (
               <motion.div
@@ -518,7 +518,7 @@ export default function App() {
             <div>
               <SectionTag>The Collection</SectionTag>
               <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[1.08] text-bone">
-                Five timepieces.
+                Ten timepieces.
                 <br />
                 <span className="gold-text italic">One civilisation.</span>
               </h2>
@@ -530,18 +530,18 @@ export default function App() {
           </div>
 
           {/* Tab selector */}
-          <div className="flex flex-wrap gap-2 mb-10">
+          <div className="flex gap-2 mb-10 overflow-x-auto pb-2 scrollbar-hide">
             {watches.map((w, i) => (
               <button
                 key={w.id}
                 onClick={() => setActiveWatch(i)}
-                className={`rounded-full px-4 py-2 text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+                className={`shrink-0 rounded-full px-4 py-2 text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                   activeWatch === i
                     ? "bg-gradient-to-b from-antique to-antique2 text-ink shadow-gold"
                     : "glass text-bone/60 hover:text-antique"
                 }`}
               >
-                {w.name.replace("Native American Luxury — ", "NA ")}
+                {w.name.replace("Native American ", "NA ").replace("Keezhadi Field — ", "Keezhadi ").replace("Tanjore Temple ", "Tanjore ").replace("Tanjore Painting ", "Painting ").replace("Cockpit 1 — ", "")}
               </button>
             ))}
           </div>
@@ -643,12 +643,12 @@ export default function App() {
           </AnimatePresence>
 
           {/* Thumbnail row */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
+          <div className="flex gap-4 mt-8 overflow-x-auto pb-4 scrollbar-hide">
             {watches.map((w, i) => (
               <motion.button
                 key={w.id}
                 onClick={() => setActiveWatch(i)}
-                className={`glass rounded-xl p-4 text-center transition-all duration-300 ${
+                className={`shrink-0 w-[140px] glass rounded-xl p-3 text-center transition-all duration-300 ${
                   activeWatch === i
                     ? "border-antique/50 shadow-gold"
                     : "hover:border-antique/30"
@@ -660,11 +660,11 @@ export default function App() {
                   <img
                     src={w.heroImage}
                     alt={w.name}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <div className="mt-3 text-[10px] tracking-[0.15em] uppercase text-bone/60 leading-tight">
-                  {w.name.length > 25 ? w.name.slice(0, 22) + "…" : w.name}
+                <div className="mt-2 text-[9px] tracking-[0.15em] uppercase text-bone/60 leading-tight">
+                  {w.name.length > 22 ? w.name.slice(0, 20) + "…" : w.name}
                 </div>
               </motion.button>
             ))}
